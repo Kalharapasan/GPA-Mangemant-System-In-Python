@@ -146,5 +146,6 @@ Developed by **P.R.P.S.Kalhara**
 
 ## 📄 License
 
-This project is licensed under the **MIT License**.
+📄 [License](./LICENSE.md): Proprietary – Permission Required
+
 
