@@ -39,6 +39,8 @@ This repository contains multiple versions of an evolving **GPA Calculator** app
 - Course import/export using Excel
 - Simple Tkinter GUI
 
+![image](https://github.com/user-attachments/assets/dd28e762-3860-480d-9dad-6cf2e9953b51)
+
 ### ✨ V2.0 - Multi-Year GPA Calculation
 - GPA tracked across multiple years and semesters
 - Real-time GPA updates
@@ -47,6 +49,9 @@ This repository contains multiple versions of an evolving **GPA Calculator** app
 - Total credits tracker
 - Data stored using SQLite
 
+![image](https://github.com/user-attachments/assets/629fac7b-2859-473b-8811-8b0ff2c7e332)
+
+
 ### 🎨 V2.1 - UI Refinements & Consistency
 - Style consistency using modern fonts (e.g., Inter)
 - Refactored layout with padding and spacing
@@ -54,12 +59,7 @@ This repository contains multiple versions of an evolving **GPA Calculator** app
 - Readable alternating row colors
 - Improved GPA result display
 
-### 🧾 V2.2 - Student Index Integration
-- Students have unique **index numbers**
-- Better UI styling and course scroll behavior
-- Database redesigned with `index_number` constraints
-- Enhanced Add Student dialog
-- Dropdown display: `index - name`
+![image](https://github.com/user-attachments/assets/68961172-1e58-433c-b659-e292c5ec54b6)
 
 ### 🛠️ V3.0 - Edit & Search Capability
 - Edit student feature added
@@ -67,6 +67,8 @@ This repository contains multiple versions of an evolving **GPA Calculator** app
 - Modular Add/Edit dialog
 - Resizable and expanded UI
 - Enhanced styling with clearer layout
+
+![image](https://github.com/user-attachments/assets/9cb6dc3a-d219-41eb-8dfd-f8e1b8a8f71f)
 
 ### 🌟 V3.1 - Material Design + Icon Buttons
 - Material Design-inspired theme
@@ -77,6 +79,8 @@ This repository contains multiple versions of an evolving **GPA Calculator** app
 - Fallback font loading mechanism
 
 ---
+![image](https://github.com/user-attachments/assets/088947c8-749a-432a-856d-5b529a7223b2)
+
 
 ## 🔧 Installation
 
