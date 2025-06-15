@@ -146,6 +146,6 @@ Developed by **P.R.P.S.Kalhara**
 
 ## 📄 License
 
-📄 [License](./LICENSE.md): Proprietary – Permission Required
+📄 [License](LICENSE.md): Proprietary – Permission Required
 
 
