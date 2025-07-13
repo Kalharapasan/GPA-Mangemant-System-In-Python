@@ -1,0 +1,40 @@
+name: GPA Calculator – Multi-Version Archive
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  PYTHON_VERSION: 3.12.1
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python ${{ env.PYTHON_VERSION }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+
+    - name: Install requirements
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    # Optionally run a non-GUI test script or check syntax
+    - name: Check syntax of V3.1.py
+      run: |
+        python -m py_compile V3.1/V3.1.py
+
+    # Optional: Run unit tests if you add pytest tests
+    # - name: Run tests
+    #   run: pytest
