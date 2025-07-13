@@ -1,111 +1,91 @@
-# The name that shows up in the GitHub Actions UI
 name: GPA Calculator – Multi-Version Archive
 
 on:
-  # Trigger this workflow when someone pushes to master or main branch
+  # Trigger on push to main or master branches
   push:
     branches:
       - master
       - main
 
-  # Trigger this workflow when someone opens a pull request
-  # targeting master or main branch
+  # Trigger on pull requests to main or master
   pull_request:
     branches:
       - master
       - main
 
-  # Allow manually running the workflow from GitHub Actions UI
+  # Allow running manually from GitHub Actions UI
   workflow_dispatch:
 
-# This section controls concurrency:
-# - Only one deployment job will run at a time in this group
-# - Cancel any older jobs queued up (but let in-progress jobs finish)
+# Allow only one deployment at a time
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
-# Define environment variables used throughout the workflow
+# Define environment variables
 env:
   BUILD_NUMBER: 1
   BUILD_VERSION: 1.0.0
   PYTHON_VERSION: 3.12.8
   FLET_CLI_VERSION: 0.27.5
-
-  # Make sure Python uses UTF-8 encoding
   PYTHONUTF8: 1
-
-  # Turn off fancy colors and formatting in flet-cli output
   FLET_CLI_NO_RICH_OUTPUT: 1
-
-  # Disable progress bars for faster logs
   UV_NO_PROGRESS: 1
 
 jobs:
-  # First job: build the web app
   build:
-    runs-on: ubuntu-latest  # Use the latest stable Ubuntu runner
+    runs-on: ubuntu-latest
 
     steps:
-      # Step: Check out your repository code
+      # Step 1: Checkout code from repository
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Step: Set up Python
+      # Step 2: Setup Python environment
       - name: Setup Python ${{ env.PYTHON_VERSION }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
-      # Step: Install flet-cli at the specified version
+      # Step 3: Install Flet CLI
       - name: Install flet-cli ${{ env.FLET_CLI_VERSION }}
         run: |
-          # Upgrade pip itself
           python -m pip install --upgrade pip
-          # Install flet-cli to run builds
           pip install flet-cli==${FLET_CLI_VERSION}
 
-      # Step: Run flet build for the web
+      # Step 4: Build Flet Web App
       - name: Flet Build Web
         run: |
-          # Just printing some info for debugging purposes
-          echo "GITHUB_REPOSITORY: ${GITHUB_REPOSITORY}, USER: ${GITHUB_REPOSITORY%/*}, PROJECT_BASE_URL: ${GITHUB_REPOSITORY#*/}"
+          echo "Building web app for repo: ${GITHUB_REPOSITORY}"
+          # Set the correct base URL to match your repo name (important!)
+          flet build web --base-url GPA-Mangement-System-In-Python --route-url-strategy hash
 
-          # Run flet build for web with specific base URL
-          # --base-url is used so your app works correctly on GitHub Pages
-          flet build web --base-url ${GITHUB_REPOSITORY#*/} --route-url-strategy hash
-
-      # Step: Upload the built web folder as an artifact
+      # Step 5: Upload web build artifact
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          name: web-build-artifact    # The name of the artifact
-          path: build/web            # Path to the built web files
+          name: web-build-artifact
+          path: build/web
 
-  # Second job: deploy the web app to GitHub Pages
   deploy:
-    # Don’t start deploy job until build job completes successfully
     needs: build
-
     runs-on: ubuntu-latest
 
     permissions:
-      pages: write      # Required to deploy to GitHub Pages
-      id-token: write   # Required for secure deployment via OIDC
+      pages: write
+      id-token: write
 
     environment:
       name: github-pages
-      # The deployment step sets this URL output
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      # Step: Configure GitHub Pages settings for this repo
+      # Step 1: Setup Pages environment
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      # Step: Deploy the uploaded web artifact to GitHub Pages
+      # Step 2: Deploy built app to GitHub Pages
       - name: Deploy to GitHub Pages 🚀
-        if: github.event_name == 'push'   # Deploy only on push, not on PR
+        if: github.event_name == 'push'
         id: deployment
         uses: actions/deploy-pages@v4.0.5
         with:
