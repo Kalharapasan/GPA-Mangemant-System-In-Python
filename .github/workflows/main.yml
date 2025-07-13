@@ -1,14 +1,17 @@
-name: Web Build + Deployment to GitHub Pages 
+name: GPA Calculator – Multi-Version Archive
 
 on:
   # Runs on push to any of the below branches
   push:
     branches:
+      - master
       - main
+     
 
   # Runs on pull request events that target one of the below branches
   pull_request:
     branches:
+      - master
       - main
 
   # Allows you to run this workflow manually from the Actions tab of the repository
